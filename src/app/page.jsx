@@ -3,11 +3,15 @@
 import Header from '@/components/Header'
 import { useState } from 'react';
 import Gallery from '@/components/Gallery';
+import { useRef } from 'react';
 
 
 export default function Home() {
   const [action, setAction] = useState(null);
   const images = ['hackathon','hackathon2','hack1','bg1']
+  const joinNowRef = useRef()
+  const galleryRef = useRef()
+  const aboutUsRef = useRef();
 
   return (
    <div className="min-h-screen overflow-x-hidden">
@@ -17,7 +21,10 @@ export default function Home() {
 
           <section className="relative min-h-screen bg-[url('/assets/bg.jpg')] bg-cover bg-center bg-no-repeat">
             <div className="absolute inset-0 bg-black/50" /> 
-            <Header />
+            <Header
+            aboutUsRef={aboutUsRef}
+            galleryRef={galleryRef}
+            />
             <div className='relative z-10 container mx-auto px-4 flex flex-col gap-8 pt-[190px] text-center'>
               <h1 className='font-extrabold  text-4xl md:text-6xl lg:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300'>
                 Welcome to AISPIRE - The Future of AI
@@ -26,7 +33,13 @@ export default function Home() {
                 Unlock the potential of artificial intelligence. Innovate, collaborate, and shape the future with like-minded pioneers
               </p>
               <div>
-                <button className='bg-white text-gray-900 rounded-xl px-8 py-3 font-bold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'>
+                <button className='bg-white text-gray-900 rounded-xl px-8 py-3 font-bold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'
+                onClick={()=>{
+                  joinNowRef.current?.scrollIntoView({
+                    behavior:'smooth'
+                  })
+                }}
+                >
                   Join Us Now
                 </button>
               </div>
@@ -34,7 +47,7 @@ export default function Home() {
           </section>
 
 
-          <section className="container mx-auto px-4 py-24 relative min-h-screen">
+          <section className="container mx-auto px-4 py-24 relative min-h-screen" ref={aboutUsRef}>
             <div className="max-w-4xl mx-auto text-center space-y-8">
               <h2 className="text-4xl md:text-5xl font-bold 
                             bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 
@@ -60,7 +73,7 @@ export default function Home() {
           </section>
 
 
-        <section className='container mx-auto px-4 py-24 relative'>
+        <section className='container mx-auto px-4 py-24 relative  min-h-screen' ref={joinNowRef}>
             {/* Title */}
             <div className="text-center mb-24 relative">
               <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold 
@@ -148,8 +161,8 @@ export default function Home() {
 
 
 
-          <section className="container mx-auto px-4 py-12 relative">
-  <div className="max-w-5xl mx-auto">
+          <section className="container mx-auto px-4 py-12 relative" ref={galleryRef}>
+  <div className="max-w-4xl mx-auto">
     {/* Title */}
     <div className="text-center mb-12 relative">
       <h2 className="text-4xl md:text-6xl font-bold 
