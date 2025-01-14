@@ -7,7 +7,6 @@ import { useRef } from 'react';
 
 
 export default function Home() {
-  // media query for small devices max-h-full fix for all sections
   const [action, setAction] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const images = ['hackathon','hackathon2','hack1','bg1']
