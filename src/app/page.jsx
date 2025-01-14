@@ -7,12 +7,13 @@ import { useRef } from 'react';
 
 
 export default function Home() {
+  // media query for small devices max-h-full fix for all sections
   const [action, setAction] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const images = ['hackathon','hackathon2','hack1','bg1']
   const joinNowRef = useRef()
   const galleryRef = useRef()
   const aboutUsRef = useRef();
-
   return (
    <div className="min-h-screen overflow-x-hidden">
 
@@ -92,9 +93,11 @@ export default function Home() {
             <div className='max-w-md mx-auto'>
               <form
                 onSubmit={(e)=>{
-                  e.preventDefault()
+                  e.preventDefault() 
                   const data = Object.fromEntries(new FormData(e.currentTarget))
-                  setAction(`Submitted ${JSON.stringify(data)}`)
+                  setAction(JSON.stringify(data))
+                  setIsSubmitted(true)
+                  e.target.reset()
                 }}
                 className='bg-gray-900/40 backdrop-blur-xl 
                           rounded-3xl p-8 md:p-10
@@ -113,14 +116,15 @@ export default function Home() {
                       placeholder='Enter your username'
                       name='username'
                       className='w-full px-4 py-3 
-                                bg-gray-800/50 
-                                border border-gray-600/50 
-                                rounded-xl 
-                                focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50
-                                transition-all duration-300 
-                                outline-none text-white
-                                placeholder:text-gray-400'
-                    />
+                      bg-gray-800/50 
+                      border border-gray-600/50 
+                      rounded-xl 
+                      focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50
+                      transition-all duration-300 
+                      outline-none text-white
+                      placeholder:text-gray-400'
+                      
+                      />
                   </div>
 
                   <div className='space-y-3'>
@@ -133,27 +137,28 @@ export default function Home() {
                       placeholder='Enter your email'
                       name='email'
                       className='w-full px-4 py-3 
-                                bg-gray-800/50 
-                                border border-gray-600/50 
-                                rounded-xl 
-                                focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50
-                                transition-all duration-300 
-                                outline-none text-white
-                                placeholder:text-gray-400'
-                    />
+                      bg-gray-800/50 
+                      border border-gray-600/50 
+                      rounded-xl 
+                      focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50
+                      transition-all duration-300 
+                      outline-none text-white
+                      placeholder:text-gray-400'
+                      />
                   </div>
 
                   <button 
                     type='submit' 
                     className='w-full bg-gradient-to-r from-blue-600 to-purple-600
-                              text-white rounded-xl py-3.5 font-semibold
-                              hover:from-blue-700 hover:to-purple-700 
-                              transition-all duration-300
-                              focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2
-                              transform hover:scale-[1.02]'
-                  >
+                    text-white rounded-xl py-3.5 font-semibold
+                    hover:from-blue-700 hover:to-purple-700 
+                    transition-all duration-300
+                    focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2
+                    transform hover:scale-[1.02]'
+                    >
                     Submit
                   </button>
+                    {isSubmitted && <p className='text-blue-600 text-center'>Submitted!</p>}
                 </div>
               </form>
             </div>
